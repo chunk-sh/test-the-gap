@@ -104,7 +104,7 @@
             initTicker: function () {
                 setInterval("home.updateTicker()", 1000);
             },
-            makeJsonPostRequest: function (url, data, useJsonp, successCallback) {
+            /*makeJsonPostRequest: function (url, data, useJsonp, successCallback) {
                 var requestJson = JSON.stringify(data);
                 if (useJsonp) {
                     $.ajax({
@@ -170,12 +170,12 @@
                 var domain = $(home.selectors.cookieDomain).val();
                 var url = home.getUrl("/createcookie?name=" + name + "&value=" + value + "&domain=" + domain, useJsonp);
                 home.makeJsonGetRequest(url, useJsonp, home.onCreateCookiesServerSideCallback);
-            },
+            },*/
             onGetCookiesClientSide: function () {
                 var cookieInfo = cookieMonster.getAll();
                 home.updateCookieInfoMessage(cookieInfo);
             },
-            onGetCookiesServerSide: function (useJsonp) {
+            /*onGetCookiesServerSide: function (useJsonp) {
                 var url = home.getUrl("/getcookies", useJsonp);
                 var requestData = {};
                 home.makeJsonPostRequest(url, requestData, useJsonp, home.onGetCookiesServerSideCallback);
@@ -232,7 +232,7 @@
             onSayHelloCallback: function (response) {
                 logger.log("Response received from onSayHello, message=" + response.message);
                 logger.logObj(response);
-            },
+            },*/
             updateCookieInfoMessage: function (cookieInfo) {
                 var timestamp = new Date();
                 var message = timestamp + ": " + cookieInfo;
