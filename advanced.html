@@ -5,6 +5,35 @@
     <link rel="stylesheet" href="content/styles/basic.css" />
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script type="text/javascript" src="content/scripts/custom.js"></script>
+    <script type="text/javascript">
+        var logger = {
+            isActive: false,
+            activate: function () {
+                logger.stubConsoleFunctionsIfUnavailable();
+                logger.isActive = true;
+            },
+            log: function (message) {
+                if (logger.isActive) {
+                    var timestamp = new Date();
+                    console.log(timestamp + ": " + message);
+                }
+            },
+            logObj: function (obj) {
+                if (logger.isActive) {
+                    console.log(obj);
+                }
+            },
+            logUrl: function () {
+                logger.log(document.URL);
+            },
+            stubConsoleFunctionsIfUnavailable: function () {
+                if (typeof (console) == "undefined") {
+                    console = { log: $.noop, group: $.noop, groupEnd: $.noop };
+                }
+            }
+        };
+        logger.activate();
+    </script>
     <script>
         var home = {
             properties: {
@@ -21,7 +50,6 @@
                 ticker: "#ticker"
             },
             init: function () {
-                alert("initialising");
                 // logger.log("page initialising...");
                 // home.initAjaxDefaults();
                 home.initTicker();
@@ -40,6 +68,29 @@
             initTicker: function () {
                 setInterval("home.updateTicker()", 1000);
             },
+            updateCookieInfoMessage: function (cookieInfo) {
+                var timestamp = new Date();
+                var message = timestamp + ": " + cookieInfo;
+                console.log(message);
+                $(home.selectors.cookieInfo).html(message);
+            },
+            updateRequestInfo: function (requestInfo) {
+                var timestamp = new Date();
+                var message = timestamp + ": " + requestInfo;
+                $(home.selectors.requestInfo).html(message);
+                $(home.selectors.requestStatus).html("pending...");
+            },
+            updateRequestStatus: function (statusInfo) {
+                var timestamp = new Date();
+                var message = timestamp + ": " + statusInfo;
+                $(home.selectors.requestStatus).html(message);
+            },
+            updateCookieDomain: function (newDomain) {
+                $(home.selectors.cookieDomain).val(newDomain);
+            },
+            updateServerPrefix: function (newPrefix) {
+                $(home.selectors.serverPrefixValue).val(newPrefix);
+            },
             updateTicker: function () {
                 home.properties.ticker += 1;
                 $(home.selectors.ticker).html(home.properties.ticker);
@@ -52,7 +103,7 @@
 </head>
 <body>
     <h1>Advanced Demo</h1>
-    <!--<fieldset>
+    <fieldset>
         <legend>Javascript Settings</legend>
         <label>Fake server URL prefix:</label>
         <input id="server-prefix" type="text" value="http://localhost:57744"/>
@@ -63,7 +114,7 @@
         <label>Cookie domain (blank for current):</label>
         <input id="cookie-domain" type="text"/>
     </fieldset>
-    <fieldset>
+    <!--<fieldset>
         <legend>Client-side Commands</legend>
         <button onclick="home.onGetCookiesClientSide()">Check Cookies</button>
         <button onclick="home.onCreateCookieClientSide()">Create Cookie</button>
@@ -105,7 +156,7 @@
     </fieldset>
     <fieldset>
         <legend>Help</legend>
-        <!--<h4>Common Server URL Prefixes</h4>
+        <h4>Common Server URL Prefixes</h4>
         <ul>
             <li><a href="#" onclick="home.updateServerPrefix('http://localhost:57744')">Demo API (IISExpress) - http://localhost:57744</a></li>
             <li><a href="#" onclick="home.updateServerPrefix('http://localhost:57709')">Demo Client (IISExpress) - http://localhost:57709</a></li>
@@ -116,7 +167,7 @@
         <ul>
             <li><a href="#" onclick="home.updateCookieDomain('')">Blank (default)</a></li>
             <li><a href="#" onclick="home.updateCookieDomain('chunklabs.co.uk')">chunklabs.co.uk</a></li>
-        </ul>-->
+        </ul>
         <h4>More Basic Pages</h4>
         <ul>
             <li><a href="index.html">home</a></li>
