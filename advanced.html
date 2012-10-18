@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Basic demo site.</title>
+    <link rel="stylesheet" href="content/styles/basic.css" />
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script type="text/javascript" src="content/scripts/custom.js"></script>
+    <script>
+        var home = {
+            properties: {
+                ticker: 0
+            },
+            selectors: {
+                serverPrefixValue: "#server-prefix",
+                cookieName: "#cookie-name",
+                cookieValue: "#cookie-value",
+                cookieDomain: "#cookie-domain",
+                cookieInfo: "#cookie-info",
+                requestInfo: "#request-info",
+                requestStatus: "#request-status",
+                ticker: "#ticker"
+            },
+            init: function () {
+                alert("initialising");
+                // logger.log("page initialising...");
+                // home.initAjaxDefaults();
+                home.initTicker();
+            },
+            initAjaxDefaults: function () {
+                logger.log("initialising AJAX request defaults...");
+                $.ajaxSetup({
+                    type: "POST",
+                    contentType: "application/json",
+                    beforeSend: home.onBeforeSendAjax,
+                    complete: home.onCompleteAjax,
+                    error: home.onErrorAjax,
+                });
+                logger.log("page initialising...");
+            },
+            initTicker: function () {
+                setInterval("home.updateTicker()", 1000);
+            },
+            updateTicker: function () {
+                home.properties.ticker += 1;
+                $(home.selectors.ticker).html(home.properties.ticker);
+            }
+        };
+        $(function () {
+            home.init();
+        });
+    </script>
+</head>
+<body>
+    <h1>Advanced Demo</h1>
+    <!--<fieldset>
+        <legend>Javascript Settings</legend>
+        <label>Fake server URL prefix:</label>
+        <input id="server-prefix" type="text" value="http://localhost:57744"/>
+        <label>Cookie name:</label>
+        <input id="cookie-name" type="text" value="demo-api-cookie"/>
+        <label>Cookie value:</label>
+        <input id="cookie-value" type="text" value="testing-value"/>
+        <label>Cookie domain (blank for current):</label>
+        <input id="cookie-domain" type="text"/>
+    </fieldset>
+    <fieldset>
+        <legend>Client-side Commands</legend>
+        <button onclick="home.onGetCookiesClientSide()">Check Cookies</button>
+        <button onclick="home.onCreateCookieClientSide()">Create Cookie</button>
+        <button onclick="home.onDeleteCookieClientSide()">Delete Cookie</button>
+    </fieldset>
+    <fieldset>
+        <legend>JSONP HTTP POST Commands (jQuery converts to HTTP GET)</legend>
+        <button onclick="home.onSayHello(true)">Say Hello to Server</button>
+        <button onclick="home.onGetCookiesServerSide(true)">Check Cookies</button>
+        <button onclick="home.onCreateCookieServerSide(true)">Create Cookie</button>
+        <button onclick="home.onDeleteCookieServerSide(true)">Delete Cookie</button>
+    </fieldset>
+    <fieldset>
+        <legend>JSON HTTP POST Commands</legend>
+        <button onclick="home.onSayHello(false)">Say Hello to Server</button>
+        <button onclick="home.onGetCookiesServerSide(false)">Check Cookies</button>
+        <button onclick="home.onCreateCookieServerSide(false)">Create Cookie</button>
+        <button onclick="home.onDeleteCookieServerSide(false)">Delete Cookie</button>
+    </fieldset>
+    <fieldset>
+        <legend>JSONP HTTP GET Commands</legend>
+        <button onclick="home.onSayHelloUsingGet(true)">Say Hello to Server</button>
+        <button onclick="home.onGetCookiesServerSideUsingGet(true)">Check Cookies</button>
+        <button onclick="home.onCreateCookieServerSideUsingGet(true)">Create Cookie</button>
+        <button onclick="home.onDeleteCookieServerSideUsingGet(true)">Delete Cookie</button>
+    </fieldset>
+    <fieldset>
+        <legend>JSON HTTP GET Commands</legend>
+        <button onclick="home.onSayHelloUsingGet(false)">Say Hello to Server</button>
+        <button onclick="home.onGetCookiesServerSideUsingGet(false)">Check Cookies</button>
+        <button onclick="home.onCreateCookieServerSideUsingGet(false)">Create Cookie</button>
+        <button onclick="home.onDeleteCookieServerSideUsingGet(false)">Delete Cookie</button>
+    </fieldset>-->
+    <fieldset>
+        <legend>Output (page ticker <span id="ticker"></span>)</legend>
+        <!--<p>Last Request: <span id="request-info"></span></p>
+        <p>Last Request Status: <span id="request-status"></span></p>
+        <p>Cookie Info: <span id="cookie-info"></span></p>-->
+    </fieldset>
+    <fieldset>
+        <legend>Help</legend>
+        <!--<h4>Common Server URL Prefixes</h4>
+        <ul>
+            <li><a href="#" onclick="home.updateServerPrefix('http://localhost:57744')">Demo API (IISExpress) - http://localhost:57744</a></li>
+            <li><a href="#" onclick="home.updateServerPrefix('http://localhost:57709')">Demo Client (IISExpress) - http://localhost:57709</a></li>
+            <li><a href="#" onclick="home.updateServerPrefix('http://knight.chunklabs.co.uk')">Demo API (bishop) - http://knight.chunklabs.co.uk</a></li>
+            <li><a href="#" onclick="home.updateServerPrefix('http://pawn.chunklabs.co.uk')">Demo Client (bishop) - http://pawn.chunklabs.co.uk</a></li>
+        </ul>
+        <h4>Common Cookie Domains</h4>
+        <ul>
+            <li><a href="#" onclick="home.updateCookieDomain('')">Blank (default)</a></li>
+            <li><a href="#" onclick="home.updateCookieDomain('chunklabs.co.uk')">chunklabs.co.uk</a></li>
+        </ul>-->
+        <h4>More Basic Pages</h4>
+        <ul>
+            <li><a href="index.html">home</a></li>
+        </ul>
+    </fieldset>
+</body>
+</html>
