@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<widget xmlns = "http://www.w3.org/ns/widgets"
+    xmlns:gap = "http://phonegap.com/ns/1.0"
+    id        = "com.chunk.test-the-gap" 
+    version   = "0.1.0">
+
+  <name>Test The Gap</name>
+  
+  <description>
+      Testing the gap app. 
+  </description>
+  
+  <author href="http://mysite.com" email="madeupemail@mysite.com">
+      Mr Made Up 
+  </author>
+
+</widget>
