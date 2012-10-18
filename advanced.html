@@ -95,16 +95,35 @@
                 requestStatus: "#request-status",
                 ticker: "#ticker"
             },
+            getServerPrefix: function () {
+                return $(home.selectors.serverPrefixValue).val();
+            },
+            getUrl: function (actionPath, useJsonp) {
+                var controllerPath = useJsonp ? "/jsonpapi" : "/jsonapi";
+                var url = home.getServerPrefix() + controllerPath + actionPath;
+                return url;
+            },
+            initAjaxDefaults: function () {
+                logger.log("initialising AJAX request defaults...");
+                $.ajaxSetup({
+                    type: "POST",
+                    contentType: "application/json",
+                    beforeSend: home.onBeforeSendAjax,
+                    complete: home.onCompleteAjax,
+                    error: home.onErrorAjax,
+                });
+                logger.log("page initialising...");
+            },
             init: function () {
                 logger.log("Page initialising...");
-                // home.initAjaxDefaults();
+                home.initAjaxDefaults();
                 home.initTicker();
                 logger.log("Initialised.");
             },
             initTicker: function () {
                 setInterval("home.updateTicker()", 1000);
             },
-            /*makeJsonPostRequest: function (url, data, useJsonp, successCallback) {
+            makeJsonPostRequest: function (url, data, useJsonp, successCallback) {
                 var requestJson = JSON.stringify(data);
                 if (useJsonp) {
                     $.ajax({
@@ -143,7 +162,7 @@
                 logger.logObj(request);
                 home.updateRequestStatus(statusText);
             },
-            onCreateCookieClientSide: function () {
+            /*onCreateCookieClientSide: function () {
                 var name = $(home.selectors.cookieName).val();
                 var value = $(home.selectors.cookieValue).val();
                 var domain = $(home.selectors.cookieDomain).val();
@@ -213,7 +232,7 @@
                 var domain = $(home.selectors.cookieDomain).val();
                 var url = home.getUrl("/deletecookie?name=" + name + "&domain=" + domain, useJsonp);
                 home.makeJsonGetRequest(url, useJsonp, home.onDeleteCookiesServerSideCallback);
-            },
+            },*/
             onErrorAjax: function (request, statusText, errorThrown) {
                 logger.log("error during request...");
                 logger.logObj(request);
@@ -232,7 +251,7 @@
             onSayHelloCallback: function (response) {
                 logger.log("Response received from onSayHello, message=" + response.message);
                 logger.logObj(response);
-            },*/
+            },
             updateCookieInfoMessage: function (cookieInfo) {
                 var timestamp = new Date();
                 var message = timestamp + ": " + cookieInfo;
