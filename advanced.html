@@ -76,6 +76,9 @@
                 home.initTicker();
                 logger.log("Initialised.");
             },
+            initTicker: function () {
+                setInterval("home.updateTicker()", 1000);
+            },
             updateCookieInfoMessage: function (cookieInfo) {
                 var timestamp = new Date();
                 var message = timestamp + ": " + cookieInfo;
