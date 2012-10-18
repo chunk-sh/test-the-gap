@@ -56,6 +56,31 @@
         };
     </script>
     <script>
+        var cookieMonster = {
+            getDefaultExpiryAsText: function() {
+                var theDate = new Date();
+                var oneYearLater = new Date(theDate.getTime() + 31536000000);
+                return oneYearLater.toGMTString();
+            },
+            create: function(name, value, domain) {
+                var cookieInfo = name + "=" + value + ";expires=" + cookieMonster.getDefaultExpiryAsText() + ";path='/'";
+                if (domain && domain.length > 0) {
+                    cookieInfo += ";domain=" + domain;
+                }
+                document.cookie = cookieInfo;
+            },
+            getAll: function() {
+                var cookies = document.cookie;
+                return cookies;
+            },
+            delete: function(name, domain) {
+                var cookieInfo = name + "=;expires=expires=Thu, 01-Jan-1970 00:00:01 GMT;path='/'";
+                if (domain && domain.length > 0) {
+                    cookieInfo += ";domain=" + domain;
+                }
+                document.cookie = cookieInfo;
+            }
+        };
         var home = {
             properties: {
                 ticker: 0
