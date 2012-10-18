@@ -104,6 +104,135 @@
             initTicker: function () {
                 setInterval("home.updateTicker()", 1000);
             },
+            /*makeJsonPostRequest: function (url, data, useJsonp, successCallback) {
+                var requestJson = JSON.stringify(data);
+                if (useJsonp) {
+                    $.ajax({
+                        url: url,
+                        data: requestJson,
+                        dataType: "jsonp",
+                        success: successCallback
+                    });
+                }
+                else {
+                    $.ajax({
+                        url: url,
+                        data: requestJson,
+                        dataType: "json",
+                        success: successCallback
+                    });
+                }
+            },
+            makeJsonGetRequest: function (url, useJsonp, successCallback) {
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    dataType: useJsonp ? "jsonp" : "json",
+                    success: successCallback
+                });
+            },
+            onBeforeSendAjax: function (request, settings) {
+                var message = "Sending " + settings.type + " request to url: " + settings.url;
+                logger.log(message);
+                logger.logObj(request);
+                logger.logObj(settings);
+                home.updateRequestInfo(message);
+            },
+            onCompleteAjax: function (request, statusText) {
+                logger.log("completed request, status: " + statusText);
+                logger.logObj(request);
+                home.updateRequestStatus(statusText);
+            },
+            onCreateCookieClientSide: function () {
+                var name = $(home.selectors.cookieName).val();
+                var value = $(home.selectors.cookieValue).val();
+                var domain = $(home.selectors.cookieDomain).val();
+                logger.log("Creating cookie " + name + "=" + value);
+                cookieMonster.create(name, value, domain);
+                home.onGetCookiesClientSide();
+            },
+            onCreateCookieServerSide: function (useJsonp) {
+                var name = $(home.selectors.cookieName).val();
+                var value = $(home.selectors.cookieValue).val();
+                var domain = $(home.selectors.cookieDomain).val();
+                var url = home.getUrl("/createcookie", useJsonp);
+                var requestData = { name: name, value: value, domain: domain };
+                home.makeJsonPostRequest(url, requestData, useJsonp, home.onCreateCookiesServerSideCallback);
+            },
+            onCreateCookiesServerSideCallback: function (response) {
+                logger.log("Response received from onCreateCookieServerSide, message=" + response.message);
+                logger.logObj(response);
+                home.updateCookieInfoMessage("recheck required");
+            },
+            onCreateCookieServerSideUsingGet: function (useJsonp) {
+                var name = $(home.selectors.cookieName).val();
+                var value = $(home.selectors.cookieValue).val();
+                var domain = $(home.selectors.cookieDomain).val();
+                var url = home.getUrl("/createcookie?name=" + name + "&value=" + value + "&domain=" + domain, useJsonp);
+                home.makeJsonGetRequest(url, useJsonp, home.onCreateCookiesServerSideCallback);
+            },
+            onGetCookiesClientSide: function () {
+                var cookieInfo = cookieMonster.getAll();
+                home.updateCookieInfoMessage(cookieInfo);
+            },
+            onGetCookiesServerSide: function (useJsonp) {
+                var url = home.getUrl("/getcookies", useJsonp);
+                var requestData = {};
+                home.makeJsonPostRequest(url, requestData, useJsonp, home.onGetCookiesServerSideCallback);
+            },
+            onGetCookiesServerSideCallback: function (response) {
+                logger.log("Response received from onGetCookiesServerSide, message=" + response.message);
+                logger.logObj(response);
+                home.updateCookieInfoMessage(response.message);
+            },
+            onGetCookiesServerSideUsingGet: function (useJsonp) {
+                var url = home.getUrl("/getcookies", useJsonp);
+                home.makeJsonGetRequest(url, useJsonp, home.onGetCookiesServerSideCallback);
+            },
+            onDeleteCookieClientSide: function () {
+                var name = $(home.selectors.cookieName).val();
+                var domain = $(home.selectors.cookieDomain).val();
+                logger.log("Clearing cookie " + name);
+                cookieMonster.delete(name, domain);
+                home.onGetCookiesClientSide();
+            },
+            onDeleteCookieServerSide: function (useJsonp) {
+                var name = $(home.selectors.cookieName).val();
+                var domain = $(home.selectors.cookieDomain).val();
+                var url = home.getUrl("/deletecookie", useJsonp);
+                var requestData = { name: name, domain: domain };
+                home.makeJsonPostRequest(url, requestData, useJsonp, home.onDeleteCookiesServerSideCallback);
+            },
+            onDeleteCookiesServerSideCallback: function (response) {
+                logger.log("Response received from onDeleteCookieServerSide, message=" + response.message);
+                logger.logObj(response);
+                home.updateCookieInfoMessage("recheck required");
+            },
+            onDeleteCookieServerSideUsingGet: function (useJsonp) {
+                var name = $(home.selectors.cookieName).val();
+                var domain = $(home.selectors.cookieDomain).val();
+                var url = home.getUrl("/deletecookie?name=" + name + "&domain=" + domain, useJsonp);
+                home.makeJsonGetRequest(url, useJsonp, home.onDeleteCookiesServerSideCallback);
+            },
+            onErrorAjax: function (request, statusText, errorThrown) {
+                logger.log("error during request...");
+                logger.logObj(request);
+                logger.logObj(statusText);
+                logger.logObj(errorThrown);
+            },
+            onSayHello: function (useJsonp) {
+                var url = home.getUrl("/hello", useJsonp);
+                var requestData = { test: "hello" };
+                home.makeJsonPostRequest(url, requestData, useJsonp, home.onSayHelloCallback);
+            },
+            onSayHelloUsingGet: function (useJsonp) {
+                var url = home.getUrl("/hello?test=hello", useJsonp);
+                home.makeJsonGetRequest(url, useJsonp, home.onSayHelloCallback);
+            },
+            onSayHelloCallback: function (response) {
+                logger.log("Response received from onSayHello, message=" + response.message);
+                logger.logObj(response);
+            },*/
             updateCookieInfoMessage: function (cookieInfo) {
                 var timestamp = new Date();
                 var message = timestamp + ": " + cookieInfo;
@@ -153,6 +282,12 @@
         <input id="cookie-domain" type="text"/>
     </fieldset>
     <fieldset>
+        <legend>Output (page ticker <span id="ticker"></span>)</legend>
+        <p>Last Request: <span id="request-info"></span></p>
+        <p>Last Request Status: <span id="request-status"></span></p>
+        <p>Cookie Info: <span id="cookie-info"></span></p>
+    </fieldset>
+    <fieldset>
         <legend>Client-side Commands</legend>
         <button onclick="home.onGetCookiesClientSide()">Check Cookies</button>
         <button onclick="home.onCreateCookieClientSide()">Create Cookie</button>
@@ -185,12 +320,6 @@
         <button onclick="home.onGetCookiesServerSideUsingGet(false)">Check Cookies</button>
         <button onclick="home.onCreateCookieServerSideUsingGet(false)">Create Cookie</button>
         <button onclick="home.onDeleteCookieServerSideUsingGet(false)">Delete Cookie</button>
-    </fieldset>
-    <fieldset>
-        <legend>Output (page ticker <span id="ticker"></span>)</legend>
-        <p>Last Request: <span id="request-info"></span></p>
-        <p>Last Request Status: <span id="request-status"></span></p>
-        <p>Cookie Info: <span id="cookie-info"></span></p>
     </fieldset>
     <fieldset>
         <legend>Help</legend>
