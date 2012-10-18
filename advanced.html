@@ -56,31 +56,6 @@
         };
     </script>
     <script>
-        var cookieMonster = {
-            getDefaultExpiryAsText: function() {
-                var theDate = new Date();
-                var oneYearLater = new Date(theDate.getTime() + 31536000000);
-                return oneYearLater.toGMTString();
-            },
-            create: function(name, value, domain) {
-                var cookieInfo = name + "=" + value + ";expires=" + cookieMonster.getDefaultExpiryAsText() + ";path='/'";
-                if (domain && domain.length > 0) {
-                    cookieInfo += ";domain=" + domain;
-                }
-                document.cookie = cookieInfo;
-            },
-            getAll: function() {
-                var cookies = document.cookie;
-                return cookies;
-            },
-            delete: function(name, domain) {
-                var cookieInfo = name + "=;expires=expires=Thu, 01-Jan-1970 00:00:01 GMT;path='/'";
-                if (domain && domain.length > 0) {
-                    cookieInfo += ";domain=" + domain;
-                }
-                document.cookie = cookieInfo;
-            }
-        };
         var home = {
             properties: {
                 ticker: 0
@@ -95,85 +70,39 @@
                 requestStatus: "#request-status",
                 ticker: "#ticker"
             },
-            getServerPrefix: function() {
-                return $(home.selectors.serverPrefixValue).val();
-            },
-            getUrl: function(actionPath, useJsonp) {
-                var controllerPath = useJsonp ? "/jsonpapi" : "/jsonapi";
-                var url = home.getServerPrefix() + controllerPath + actionPath;
-                return url;
-            },
-            init: function() {
+            init: function () {
                 logger.log("Page initialising...");
                 // home.initAjaxDefaults();
                 home.initTicker();
                 logger.log("Initialised.");
             },
-            initTicker: function() {
+            initTicker: function () {
                 setInterval("home.updateTicker()", 1000);
             },
-            onCreateCookieClientSide: function() {
-                var name = $(home.selectors.cookieName).val();
-                var value = $(home.selectors.cookieValue).val();
-                var domain = $(home.selectors.cookieDomain).val();
-                logger.log("Creating cookie " + name + "=" + value);
-                cookieMonster.create(name, value, domain);
-                home.onGetCookiesClientSide();
-            },
-            onGetCookiesClientSide: function() {
-                var cookieInfo = cookieMonster.getAll();
-                home.updateCookieInfoMessage(cookieInfo);
-            },
-            onDeleteCookieClientSide: function() {
-                var name = $(home.selectors.cookieName).val();
-                var domain = $(home.selectors.cookieDomain).val();
-                logger.log("Clearing cookie " + name);
-                cookieMonster.delete(name, domain);
-                home.onGetCookiesClientSide();
-            },
-            onErrorAjax: function(request, statusText, errorThrown) {
-                logger.log("error during request...");
-                logger.logObj(request);
-                logger.logObj(statusText);
-                logger.logObj(errorThrown);
-            },
-            onSayHello: function(useJsonp) {
-                var url = home.getUrl("/hello", useJsonp);
-                var requestData = { test: "hello" };
-                home.makeJsonPostRequest(url, requestData, useJsonp, home.onSayHelloCallback);
-            },
-            onSayHelloUsingGet: function(useJsonp) {
-                var url = home.getUrl("/hello?test=hello", useJsonp);
-                home.makeJsonGetRequest(url, useJsonp, home.onSayHelloCallback);
-            },
-            onSayHelloCallback: function(response) {
-                logger.log("Response received from onSayHello, message=" + response.message);
-                logger.logObj(response);
-            },
-            updateCookieInfoMessage: function(cookieInfo) {
+            updateCookieInfoMessage: function (cookieInfo) {
                 var timestamp = new Date();
                 var message = timestamp + ": " + cookieInfo;
                 console.log(message);
                 $(home.selectors.cookieInfo).html(message);
             },
-            updateRequestInfo: function(requestInfo) {
+            updateRequestInfo: function (requestInfo) {
                 var timestamp = new Date();
                 var message = timestamp + ": " + requestInfo;
                 $(home.selectors.requestInfo).html(message);
                 $(home.selectors.requestStatus).html("pending...");
             },
-            updateRequestStatus: function(statusInfo) {
+            updateRequestStatus: function (statusInfo) {
                 var timestamp = new Date();
                 var message = timestamp + ": " + statusInfo;
                 $(home.selectors.requestStatus).html(message);
             },
-            updateCookieDomain: function(newDomain) {
+            updateCookieDomain: function (newDomain) {
                 $(home.selectors.cookieDomain).val(newDomain);
             },
-            updateServerPrefix: function(newPrefix) {
+            updateServerPrefix: function (newPrefix) {
                 $(home.selectors.serverPrefixValue).val(newPrefix);
             },
-            updateTicker: function() {
+            updateTicker: function () {
                 home.properties.ticker += 1;
                 $(home.selectors.ticker).html(home.properties.ticker);
             }
