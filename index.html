@@ -2,17 +2,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Basic demo site.</title>
-    <link rel="stylesheet" href="basic.css" />
+    <link rel="stylesheet" href="content/styles/basic.css" />
+    <script type="text/javascript" src="content/scripts/custom.js"></script>
 </head>
 <body>
     <h1>Even more basic demo!</h1>
     <p>This is about as basic as it gets.</p>
     <a href="other.html">Go to other page</a>
-    <a href="/other.html">Go to other page (from root)</a>
+    <!--
+        NOTE: Absolute references do not work. Android for example will look on it's own file system.
+        <a href="/other.html">Go to other page (from root)</a>
+    -->
     <a href="sub-pages/sub.html">Go to sub-page</a>
-    <a href="/sub-pages/sub.html">Go to sub-page (from root)</a>
     <a href="http://bing.com">Bing!</a>
     <button onclick="alert('hello from the button')">Click Me (button)</button>
     <input type="submit" onclick="alert('hello from submit input')" value="Click Me (input)"/>
+    <button onclick="sayhello1()">Click Me (global)</button>
+    <button onclick="test.sayHello2()">Click Me (namespace)</button>
 </body>
 </html>
