@@ -161,8 +161,8 @@
                 logger.log("completed request, status: " + statusText);
                 logger.logObj(request);
                 home.updateRequestStatus(statusText);
-            },
-            /*onCreateCookieClientSide: function () {
+            },/*
+            onCreateCookieClientSide: function () {
                 var name = $(home.selectors.cookieName).val();
                 var value = $(home.selectors.cookieValue).val();
                 var domain = $(home.selectors.cookieDomain).val();
@@ -182,7 +182,7 @@
                 logger.log("Response received from onCreateCookieServerSide, message=" + response.message);
                 logger.logObj(response);
                 home.updateCookieInfoMessage("recheck required");
-            },
+            },*/
             onCreateCookieServerSideUsingGet: function (useJsonp) {
                 var name = $(home.selectors.cookieName).val();
                 var value = $(home.selectors.cookieValue).val();
@@ -207,7 +207,7 @@
             onGetCookiesServerSideUsingGet: function (useJsonp) {
                 var url = home.getUrl("/getcookies", useJsonp);
                 home.makeJsonGetRequest(url, useJsonp, home.onGetCookiesServerSideCallback);
-            },
+            },/*
             onDeleteCookieClientSide: function () {
                 var name = $(home.selectors.cookieName).val();
                 var domain = $(home.selectors.cookieDomain).val();
