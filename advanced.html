@@ -161,7 +161,7 @@
                 logger.log("completed request, status: " + statusText);
                 logger.logObj(request);
                 home.updateRequestStatus(statusText);
-            },/*
+            },
             onCreateCookieClientSide: function () {
                 var name = $(home.selectors.cookieName).val();
                 var value = $(home.selectors.cookieValue).val();
@@ -182,7 +182,7 @@
                 logger.log("Response received from onCreateCookieServerSide, message=" + response.message);
                 logger.logObj(response);
                 home.updateCookieInfoMessage("recheck required");
-            },*/
+            },
             onCreateCookieServerSideUsingGet: function (useJsonp) {
                 var name = $(home.selectors.cookieName).val();
                 var value = $(home.selectors.cookieValue).val();
@@ -207,7 +207,7 @@
             onGetCookiesServerSideUsingGet: function (useJsonp) {
                 var url = home.getUrl("/getcookies", useJsonp);
                 home.makeJsonGetRequest(url, useJsonp, home.onGetCookiesServerSideCallback);
-            },/*
+            },
             onDeleteCookieClientSide: function () {
                 var name = $(home.selectors.cookieName).val();
                 var domain = $(home.selectors.cookieDomain).val();
@@ -232,7 +232,7 @@
                 var domain = $(home.selectors.cookieDomain).val();
                 var url = home.getUrl("/deletecookie?name=" + name + "&domain=" + domain, useJsonp);
                 home.makeJsonGetRequest(url, useJsonp, home.onDeleteCookiesServerSideCallback);
-            },*/
+            },
             onErrorAjax: function (request, statusText, errorThrown) {
                 logger.log("error during request...");
                 logger.logObj(request);
@@ -354,9 +354,10 @@
             <li><a href="#" onclick="home.updateCookieDomain('')">Blank (default)</a></li>
             <li><a href="#" onclick="home.updateCookieDomain('chunklabs.co.uk')">chunklabs.co.uk</a></li>
         </ul>
-        <h4>More Basic Pages</h4>
+        <h4>Other Pages</h4>
         <ul>
-            <li><a href="index.html">home</a></li>
+            <li><a href="index.html">Back to home</a></li>
+            <li><a href="http://pawn.chunklabs.co.uk" target="_blank">pawn.chunklabs.co.uk (new window)</a></li>
         </ul>
     </fieldset>
     <fieldset>
