@@ -22,7 +22,7 @@
                     var timestamp = new Date();
                     var logMessage = timestamp + ": " + message;
                     console.log(logMessage);
-                    if(logger.appenderFunction) {
+                    if (logger.appenderFunction) {
                         logger.appenderFunction(logMessage);
                     }
                 }
@@ -50,30 +50,30 @@
                 var newLogItem = $("<li>" + message + "</li>");
                 $(loggerOnPageAppender.logMessageListSelector).append(newLogItem);
             },
-            clear: function() {
+            clear: function () {
                 $(loggerOnPageAppender.logMessageListSelector).html("");
             }
         };
     </script>
     <script>
         var cookieMonster = {
-            getDefaultExpiryAsText: function() {
+            getDefaultExpiryAsText: function () {
                 var theDate = new Date();
                 var oneYearLater = new Date(theDate.getTime() + 31536000000);
                 return oneYearLater.toGMTString();
             },
-            create: function(name, value, domain) {
+            create: function (name, value, domain) {
                 var cookieInfo = name + "=" + value + ";expires=" + cookieMonster.getDefaultExpiryAsText() + ";path='/'";
                 if (domain && domain.length > 0) {
                     cookieInfo += ";domain=" + domain;
                 }
                 document.cookie = cookieInfo;
             },
-            getAll: function() {
+            getAll: function () {
                 var cookies = document.cookie;
                 return cookies;
             },
-            deleteCookie: function(name, domain) {
+            deleteCookie: function (name, domain) {
                 var cookieInfo = name + "=;expires=expires=Thu, 01-Jan-1970 00:00:01 GMT;path='/'";
                 if (domain && domain.length > 0) {
                     cookieInfo += ";domain=" + domain;
@@ -161,78 +161,78 @@
                 logger.log("completed request, status: " + statusText);
                 logger.logObj(request);
                 home.updateRequestStatus(statusText);
-            },/*
-            onCreateCookieClientSide: function () {
-                var name = $(home.selectors.cookieName).val();
-                var value = $(home.selectors.cookieValue).val();
-                var domain = $(home.selectors.cookieDomain).val();
-                logger.log("Creating cookie " + name + "=" + value);
-                cookieMonster.create(name, value, domain);
-                home.onGetCookiesClientSide();
             },
-            onCreateCookieServerSide: function (useJsonp) {
-                var name = $(home.selectors.cookieName).val();
-                var value = $(home.selectors.cookieValue).val();
-                var domain = $(home.selectors.cookieDomain).val();
-                var url = home.getUrl("/createcookie", useJsonp);
-                var requestData = { name: name, value: value, domain: domain };
-                home.makeJsonPostRequest(url, requestData, useJsonp, home.onCreateCookiesServerSideCallback);
-            },
-            onCreateCookiesServerSideCallback: function (response) {
-                logger.log("Response received from onCreateCookieServerSide, message=" + response.message);
-                logger.logObj(response);
-                home.updateCookieInfoMessage("recheck required");
-            },
-            onCreateCookieServerSideUsingGet: function (useJsonp) {
-                var name = $(home.selectors.cookieName).val();
-                var value = $(home.selectors.cookieValue).val();
-                var domain = $(home.selectors.cookieDomain).val();
-                var url = home.getUrl("/createcookie?name=" + name + "&value=" + value + "&domain=" + domain, useJsonp);
-                home.makeJsonGetRequest(url, useJsonp, home.onCreateCookiesServerSideCallback);
-            },
-            onGetCookiesClientSide: function () {
-                var cookieInfo = cookieMonster.getAll();
-                home.updateCookieInfoMessage(cookieInfo);
-            },
-            onGetCookiesServerSide: function (useJsonp) {
-                var url = home.getUrl("/getcookies", useJsonp);
-                var requestData = {};
-                home.makeJsonPostRequest(url, requestData, useJsonp, home.onGetCookiesServerSideCallback);
-            },
-            onGetCookiesServerSideCallback: function (response) {
-                logger.log("Response received from onGetCookiesServerSide, message=" + response.message);
-                logger.logObj(response);
-                home.updateCookieInfoMessage(response.message);
-            },
-            onGetCookiesServerSideUsingGet: function (useJsonp) {
-                var url = home.getUrl("/getcookies", useJsonp);
-                home.makeJsonGetRequest(url, useJsonp, home.onGetCookiesServerSideCallback);
-            },
-            onDeleteCookieClientSide: function () {
-                var name = $(home.selectors.cookieName).val();
-                var domain = $(home.selectors.cookieDomain).val();
-                logger.log("Clearing cookie " + name);
-                cookieMonster.delete(name, domain);
-                home.onGetCookiesClientSide();
-            },
-            onDeleteCookieServerSide: function (useJsonp) {
-                var name = $(home.selectors.cookieName).val();
-                var domain = $(home.selectors.cookieDomain).val();
-                var url = home.getUrl("/deletecookie", useJsonp);
-                var requestData = { name: name, domain: domain };
-                home.makeJsonPostRequest(url, requestData, useJsonp, home.onDeleteCookiesServerSideCallback);
-            },
-            onDeleteCookiesServerSideCallback: function (response) {
-                logger.log("Response received from onDeleteCookieServerSide, message=" + response.message);
-                logger.logObj(response);
-                home.updateCookieInfoMessage("recheck required");
-            },
-            onDeleteCookieServerSideUsingGet: function (useJsonp) {
-                var name = $(home.selectors.cookieName).val();
-                var domain = $(home.selectors.cookieDomain).val();
-                var url = home.getUrl("/deletecookie?name=" + name + "&domain=" + domain, useJsonp);
-                home.makeJsonGetRequest(url, useJsonp, home.onDeleteCookiesServerSideCallback);
-            },*/
+            /*onCreateCookieClientSide: function () {
+var name = $(home.selectors.cookieName).val();
+var value = $(home.selectors.cookieValue).val();
+var domain = $(home.selectors.cookieDomain).val();
+logger.log("Creating cookie " + name + "=" + value);
+cookieMonster.create(name, value, domain);
+home.onGetCookiesClientSide();
+},
+onCreateCookieServerSide: function (useJsonp) {
+var name = $(home.selectors.cookieName).val();
+var value = $(home.selectors.cookieValue).val();
+var domain = $(home.selectors.cookieDomain).val();
+var url = home.getUrl("/createcookie", useJsonp);
+var requestData = { name: name, value: value, domain: domain };
+home.makeJsonPostRequest(url, requestData, useJsonp, home.onCreateCookiesServerSideCallback);
+},
+onCreateCookiesServerSideCallback: function (response) {
+logger.log("Response received from onCreateCookieServerSide, message=" + response.message);
+logger.logObj(response);
+home.updateCookieInfoMessage("recheck required");
+},
+onCreateCookieServerSideUsingGet: function (useJsonp) {
+var name = $(home.selectors.cookieName).val();
+var value = $(home.selectors.cookieValue).val();
+var domain = $(home.selectors.cookieDomain).val();
+var url = home.getUrl("/createcookie?name=" + name + "&value=" + value + "&domain=" + domain, useJsonp);
+home.makeJsonGetRequest(url, useJsonp, home.onCreateCookiesServerSideCallback);
+},
+onGetCookiesClientSide: function () {
+var cookieInfo = cookieMonster.getAll();
+home.updateCookieInfoMessage(cookieInfo);
+},
+onGetCookiesServerSide: function (useJsonp) {
+var url = home.getUrl("/getcookies", useJsonp);
+var requestData = {};
+home.makeJsonPostRequest(url, requestData, useJsonp, home.onGetCookiesServerSideCallback);
+},
+onGetCookiesServerSideCallback: function (response) {
+logger.log("Response received from onGetCookiesServerSide, message=" + response.message);
+logger.logObj(response);
+home.updateCookieInfoMessage(response.message);
+},
+onGetCookiesServerSideUsingGet: function (useJsonp) {
+var url = home.getUrl("/getcookies", useJsonp);
+home.makeJsonGetRequest(url, useJsonp, home.onGetCookiesServerSideCallback);
+},
+onDeleteCookieClientSide: function () {
+var name = $(home.selectors.cookieName).val();
+var domain = $(home.selectors.cookieDomain).val();
+logger.log("Clearing cookie " + name);
+cookieMonster.delete(name, domain);
+home.onGetCookiesClientSide();
+},
+onDeleteCookieServerSide: function (useJsonp) {
+var name = $(home.selectors.cookieName).val();
+var domain = $(home.selectors.cookieDomain).val();
+var url = home.getUrl("/deletecookie", useJsonp);
+var requestData = { name: name, domain: domain };
+home.makeJsonPostRequest(url, requestData, useJsonp, home.onDeleteCookiesServerSideCallback);
+},
+onDeleteCookiesServerSideCallback: function (response) {
+logger.log("Response received from onDeleteCookieServerSide, message=" + response.message);
+logger.logObj(response);
+home.updateCookieInfoMessage("recheck required");
+},
+onDeleteCookieServerSideUsingGet: function (useJsonp) {
+var name = $(home.selectors.cookieName).val();
+var domain = $(home.selectors.cookieDomain).val();
+var url = home.getUrl("/deletecookie?name=" + name + "&domain=" + domain, useJsonp);
+home.makeJsonGetRequest(url, useJsonp, home.onDeleteCookiesServerSideCallback);
+},*/
             onErrorAjax: function (request, statusText, errorThrown) {
                 logger.log("error during request...");
                 logger.logObj(request);
@@ -320,25 +320,11 @@
         <button onclick="home.onDeleteCookieServerSide(true)">Delete Cookie</button>
     </fieldset>
     <fieldset>
-        <legend>JSON HTTP POST Commands</legend>
-        <button onclick="home.onSayHello(false)">Say Hello to Server</button>
-        <button onclick="home.onGetCookiesServerSide(false)">Check Cookies</button>
-        <button onclick="home.onCreateCookieServerSide(false)">Create Cookie</button>
-        <button onclick="home.onDeleteCookieServerSide(false)">Delete Cookie</button>
-    </fieldset>
-    <fieldset>
         <legend>JSONP HTTP GET Commands</legend>
         <button onclick="home.onSayHelloUsingGet(true)">Say Hello to Server</button>
         <button onclick="home.onGetCookiesServerSideUsingGet(true)">Check Cookies</button>
         <button onclick="home.onCreateCookieServerSideUsingGet(true)">Create Cookie</button>
         <button onclick="home.onDeleteCookieServerSideUsingGet(true)">Delete Cookie</button>
-    </fieldset>
-    <fieldset>
-        <legend>JSON HTTP GET Commands</legend>
-        <button onclick="home.onSayHelloUsingGet(false)">Say Hello to Server</button>
-        <button onclick="home.onGetCookiesServerSideUsingGet(false)">Check Cookies</button>
-        <button onclick="home.onCreateCookieServerSideUsingGet(false)">Create Cookie</button>
-        <button onclick="home.onDeleteCookieServerSideUsingGet(false)">Delete Cookie</button>
     </fieldset>
     <fieldset>
         <legend>Help</legend>
@@ -354,10 +340,9 @@
             <li><a href="#" onclick="home.updateCookieDomain('')">Blank (default)</a></li>
             <li><a href="#" onclick="home.updateCookieDomain('chunklabs.co.uk')">chunklabs.co.uk</a></li>
         </ul>
-        <h4>Other Pages</h4>
+        <h4>More Basic Pages</h4>
         <ul>
-            <li><a href="index.html">Back to home</a></li>
-            <li><a href="http://pawn.chunklabs.co.uk" target="_blank">pawn.chunklabs.co.uk (new window)</a></li>
+            <li><a href="index.html">home</a></li>
         </ul>
     </fieldset>
     <fieldset>
