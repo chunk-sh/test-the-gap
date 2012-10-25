@@ -189,7 +189,7 @@
                 var domain = $(home.selectors.cookieDomain).val();
                 var url = home.getUrl("/createcookie?name=" + name + "&value=" + value + "&domain=" + domain, useJsonp);
                 home.makeJsonGetRequest(url, useJsonp, home.onCreateCookiesServerSideCallback);
-            },*/
+            },
             onGetCookiesClientSide: function () {
                 var cookieInfo = cookieMonster.getAll();
                 home.updateCookieInfoMessage(cookieInfo);
@@ -207,7 +207,7 @@
             onGetCookiesServerSideUsingGet: function (useJsonp) {
                 var url = home.getUrl("/getcookies", useJsonp);
                 home.makeJsonGetRequest(url, useJsonp, home.onGetCookiesServerSideCallback);
-            },/*
+            },
             onDeleteCookieClientSide: function () {
                 var name = $(home.selectors.cookieName).val();
                 var domain = $(home.selectors.cookieDomain).val();
